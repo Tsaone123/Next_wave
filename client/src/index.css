@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(270, 90%, 70%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(188, 94%, 42%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(43, 96%, 56%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(270, 90%, 70%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(188, 94%, 42%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(43, 96%, 56%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Custom gradients and effects */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(270, 90%, 70%) 0%, hsl(188, 94%, 42%) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, hsl(188, 94%, 42%) 0%, hsl(43, 96%, 56%) 100%);
+}
+
+.backdrop-blur-custom {
+  backdrop-filter: blur(12px);
+}
+
+/* Animation classes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(60, 4.8%, 95.9%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(270, 90%, 70%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(270, 90%, 60%);
+}
+
+/* Typography */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Custom button variants */
+.btn-primary {
+  @apply bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300;
+}
+
+.btn-secondary {
+  @apply bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300;
+}
+
+/* Card effects */
+.card-hover {
+  @apply hover:shadow-2xl transition-all duration-300 transform hover:scale-105;
+}
+
+/* Glass effect */
+.glass-effect {
+  @apply bg-white/80 backdrop-blur-sm;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .mobile-stack {
+    @apply flex-col space-y-4 space-x-0;
+  }
+}
+
+/* Custom badge styles */
+.badge-primary {
+  background-color: hsla(270, 90%, 70%, 0.2);
+  color: hsl(270, 90%, 70%);
+}
+
+.badge-secondary {
+  background-color: hsla(188, 94%, 42%, 0.2);
+  color: hsl(188, 94%, 42%);
+}
+
+.badge-accent {
+  background-color: hsla(43, 96%, 56%, 0.2);
+  color: hsl(43, 96%, 56%);
+}
+
+/* Focus states */
+.focus-primary {
+  @apply focus:ring-2 focus:ring-primary focus:border-transparent;
+}
+
+/* Loading states */
+.loading-spinner {
+  @apply animate-spin rounded-full h-6 w-6 border-b-2 border-primary;
+}
+
+/* Text gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, hsl(270, 90%, 70%) 0%, hsl(188, 94%, 42%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, hsl(188, 94%, 42%) 0%, hsl(43, 96%, 56%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Audio player customization */
+audio {
+  @apply w-full rounded-lg;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: hsl(60, 4.8%, 95.9%);
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: hsl(270, 90%, 70%);
+  border-radius: 50%;
+}
+
+/* Form improvements */
+.form-input {
+  @apply w-full px-4 py-3 rounded-xl border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent transition-all;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-foreground mb-2;
+}
+
+/* Section spacing */
+.section-spacing {
+  @apply py-16 px-4;
+}
+
+/* Container max-width */
+.container-custom {
+  @apply max-w-6xl mx-auto;
+}
+
+/* Hero section specific styles */
+.hero-bg {
+  background: linear-gradient(135deg, hsl(270, 90%, 70%, 0.1) 0%, hsl(188, 94%, 42%, 0.1) 100%);
+}
+
+/* Navigation improvements */
+.nav-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Footer styling */
+.footer-gradient {
+  background: linear-gradient(135deg, hsl(240, 10%, 3.9%) 0%, hsl(240, 3.7%, 15.9%) 100%);
+}
