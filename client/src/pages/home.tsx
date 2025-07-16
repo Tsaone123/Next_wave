@@ -11,30 +11,94 @@ import AdminPanel from "@/components/ui/admin-panel";
 
 export default function Home() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
+  
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple password check - in production, this should be much more secure
+    if (adminPassword === "nextwave2024") {
+      setIsAdmin(true);
+      setShowAdminLogin(false);
+      setAdminPassword("");
+    } else {
+      alert("Incorrect password");
+      setAdminPassword("");
+    }
+  };
+  
+  const handleAdminLogout = () => {
+    setIsAdmin(false);
+    setShowAdminLogin(false);
+    setAdminPassword("");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-cyan-50">
       <Navigation />
       
-      {/* Admin Toggle */}
+      {/* Admin Access */}
       <div className="fixed bottom-4 right-4 z-50">
-        <label className="inline-flex items-center cursor-pointer bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg">
-          <input
-            type="checkbox"
-            checked={isAdmin}
-            onChange={(e) => setIsAdmin(e.target.checked)}
-            className="sr-only"
-          />
-          <div className={`relative w-11 h-6 bg-gray-200 rounded-full transition-colors ${
-            isAdmin ? 'bg-primary' : ''
-          }`}>
-            <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-              isAdmin ? 'translate-x-5' : ''
-            }`} />
+        {isAdmin ? (
+          <div className="flex items-center gap-2">
+            <div className="bg-green-100 text-green-800 px-3 py-2 rounded-full text-sm font-medium">
+              Admin Mode Active
+            </div>
+            <button
+              onClick={handleAdminLogout}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+            >
+              Logout
+            </button>
           </div>
-          <span className="ml-3 text-sm font-medium text-gray-700">Admin</span>
-        </label>
+        ) : (
+          <button
+            onClick={() => setShowAdminLogin(true)}
+            className="bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <span className="text-sm font-medium text-gray-700">Admin Access</span>
+          </button>
+        )}
       </div>
+
+      {/* Admin Login Modal */}
+      {showAdminLogin && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Admin Login</h3>
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Admin Password
+                </label>
+                <input
+                  type="password"
+                  value={adminPassword}
+                  onChange={(e) => setAdminPassword(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter admin password"
+                  required
+                />
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors"
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowAdminLogin(false)}
+                  className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 rounded-lg font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <Hero />
       <PlaylistUpload />
